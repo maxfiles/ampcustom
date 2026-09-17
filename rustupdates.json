@@ -1,0 +1,159 @@
+[
+    {
+        "UpdateStageName": "Wipe Server Files",
+        "UpdateSourcePlatform": "Linux",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "/bin/bash",
+        "UpdateSourceArgs": "-c \"cd \\\"{{$FullBaseDir}}server/{{serveridentity}}\\\" && rm -f *.map *.sav* {{ModDBWipelist}} >/dev/null 2>&1; cd \\\"{{$FullBaseDir}}carbon/data\\\" >/dev/null 2>&1 && rm -f {{CarbonOxideDataWipelist}} >/dev/null 2>&1; cd \\\"{{$FullBaseDir}}oxide/data\\\" >/dev/null 2>&1 && rm -f {{CarbonOxideDataWipelist}} >/dev/null 2>&1\"",
+        "UpdateSourceConditionSetting": "EnableWipe",
+        "UpdateSourceConditionValue": "true",
+        "SkipOnFailure": true
+    },
+    {
+        "UpdateStageName": "Wipe Server Files",
+        "UpdateSourcePlatform": "Windows",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "cmd.exe",
+        "UpdateSourceArgs": "/C cd \"{{$FullBaseDir}}server\\{{serveridentity}}\" && del /Q /F *.map *.sav* {{ModDBWipelist}} > NUL 2>&1 & cd \"{{$FullBaseDir}}carbon\\data\" > NUL 2>&1 && del /Q /F {{CarbonOxideDataWipelist}} > NUL 2>&1 & cd \"{{$FullBaseDir}}oxide\\data\" > NUL 2>&1 && del /Q /F {{CarbonOxideDataWipelist}} > NUL 2>&1",
+        "UpdateSourceConditionSetting": "EnableWipe",
+        "UpdateSourceConditionValue": "true",
+        "SkipOnFailure": true
+    },
+    {
+        "UpdateStageName": "Remove Carbon",
+        "UpdateSourcePlatform": "Linux",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "/bin/bash",
+        "UpdateSourceArgs": "-c \"cd ./rust/258550 && rm -rf carbon carbon.sh libdoorstop.so >/dev/null 2>&1\"",
+        "UpdateSourceConditionSetting": "ModLoader",
+        "UpdateSourceConditionValue": "umod",
+        "SkipOnFailure": true
+    },
+    {
+        "UpdateStageName": "Remove Carbon",
+        "UpdateSourcePlatform": "Windows",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "cmd.exe",
+        "UpdateSourceArgs": "/C cd rust\\258550 && del /Q /F doorstop_config.ini winhttp.dll > NUL 2>&1 && rd /S /Q carbon > NUL 2>&1",
+        "UpdateSourceConditionSetting": "ModLoader",
+        "UpdateSourceConditionValue": "umod",
+        "SkipOnFailure": true
+    },
+    {
+        "UpdateStageName": "Remove Carbon",
+        "UpdateSourcePlatform": "Linux",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "/bin/bash",
+        "UpdateSourceArgs": "-c \"cd ./rust/258550 && rm -rf carbon carbon.sh libdoorstop.so >/dev/null 2>&1\"",
+        "UpdateSourceConditionSetting": "ModLoader",
+        "UpdateSourceConditionValue": "none",
+        "SkipOnFailure": true
+    },
+    {
+        "UpdateStageName": "Remove Carbon",
+        "UpdateSourcePlatform": "Windows",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "cmd.exe",
+        "UpdateSourceArgs": "/C cd rust\\258550 && del /Q /F doorstop_config.ini winhttp.dll > NUL 2>&1 && rd /S /Q carbon > NUL 2>&1",
+        "UpdateSourceConditionSetting": "ModLoader",
+        "UpdateSourceConditionValue": "none",
+        "SkipOnFailure": true
+    },
+    {
+        "UpdateStageName": "Remove uMod",
+        "UpdateSourcePlatform": "Linux",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "/bin/bash",
+        "UpdateSourceArgs": "-c \"cd ./rust/258550 && rm -rf oxide Oxide.Compiler compiler*.log RustDedicated_Data/Managed/Oxide* >/dev/null 2>&1\"",
+        "UpdateSourceConditionSetting": "ModLoader",
+        "UpdateSourceConditionValue": "carbon",
+        "SkipOnFailure": true
+    },
+    {
+        "UpdateStageName": "Remove uMod",
+        "UpdateSourcePlatform": "Windows",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "cmd.exe",
+        "UpdateSourceArgs": "/C cd rust\\258550 && del /Q /F Oxide.Compiler.exe compiler*.log RustDedicated_Data\\Managed\\Oxide* > NUL 2>&1 && rd /S /Q oxide > NUL 2>&1",
+        "UpdateSourceConditionSetting": "ModLoader",
+        "UpdateSourceConditionValue": "carbon",
+        "SkipOnFailure": true
+    },
+    {
+        "UpdateStageName": "Remove uMod",
+        "UpdateSourcePlatform": "Linux",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "/bin/bash",
+        "UpdateSourceArgs": "-c \"cd ./rust/258550 && rm -rf oxide Oxide.Compiler compiler*.log RustDedicated_Data/Managed/Oxide* >/dev/null 2>&1\"",
+        "UpdateSourceConditionSetting": "ModLoader",
+        "UpdateSourceConditionValue": "none",
+        "SkipOnFailure": true
+    },
+    {
+        "UpdateStageName": "Remove uMod",
+        "UpdateSourcePlatform": "Windows",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "cmd.exe",
+        "UpdateSourceArgs": "/C cd rust\\258550 && del /Q /F Oxide.Compiler.exe compiler*.log RustDedicated_Data\\Managed\\Oxide* > NUL 2>&1 && rd /S /Q oxide > NUL 2>&1",
+        "UpdateSourceConditionSetting": "ModLoader",
+        "UpdateSourceConditionValue": "none",
+        "SkipOnFailure": true
+    },
+    {
+        "UpdateStageName": "Rust Download",
+        "UpdateSourcePlatform": "All",
+        "UpdateSource": "SteamCMD",
+        "UpdateSourceData": "258550",
+        "UpdateSourceArgs": "252490",
+        "UpdateSourceVersion": "{{ServerBranch}}",
+        "SkipOnFailure": false
+    },
+    {
+        "UpdateStageName": "Carbon Download",
+        "UpdateSourcePlatform": "Linux",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "/bin/bash",
+        "UpdateSourceArgs": "-c \"CarbonBuild=\\\"{{CarbonBuild}}\\\"; cd rust/258550; case $CarbonBuild in production_build) CarbonDownload=\\\"Carbon.Linux.Release.tar.gz\\\";; *) CarbonDownload=\\\"Carbon.Linux.Debug.tar.gz\\\";; esac && wget -qO carbon.tar.gz https://github.com/CarbonCommunity/Carbon/releases/download/$CarbonBuild/$CarbonDownload && tar -xzf carbon.tar.gz >/dev/null 2>&1 && rm -f carbon.tar.gz >/dev/null 2>&1\"",
+        "UpdateSourceConditionSetting": "ModLoader",
+        "UpdateSourceConditionValue": "carbon",
+        "SkipOnFailure": true
+    },
+    {
+        "UpdateStageName": "Carbon Download",
+        "UpdateSourcePlatform": "Windows",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "powershell.exe",
+        "UpdateSourceArgs": "-NoProfile -Command \"$ProgressPreference='SilentlyContinue'; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; $CarbonBuild='{{CarbonBuild}}'; Set-Location -Path 'rust/258550'; $CarbonDownload = switch ($CarbonBuild) { 'production_build' { 'Carbon.Windows.Release.zip' } default { 'Carbon.Windows.Debug.zip' } }; Invoke-WebRequest -UseBasicParsing -Uri https://github.com/CarbonCommunity/Carbon/releases/download/$CarbonBuild/$CarbonDownload -OutFile 'carbon.zip'; if ($?) { Expand-Archive -Path \\\"carbon.zip\\\" -DestinationPath \\\".\\\" -Force *> $null; if (Test-Path carbon.zip) { Remove-Item carbon.zip -Force -ErrorAction SilentlyContinue *> $null } }\"",
+        "UpdateSourceConditionSetting": "ModLoader",
+        "UpdateSourceConditionValue": "carbon",
+        "SkipOnFailure": true
+    },
+    {
+        "UpdateStageName": "uMod Download",
+        "UpdateSourcePlatform": "Windows",
+        "UpdateSource": "GithubRelease",
+        "UpdateSourceArgs": "OxideMod/Oxide.Rust",
+        "UpdateSourceData": "Oxide.Rust.zip",
+        "UpdateSourceTarget": "{{$FullBaseDir}}",
+        "UnzipUpdateSource": true,
+        "OverwriteExistingFiles": true,
+        "UpdateSourceConditionSetting": "ModLoader",
+        "UpdateSourceConditionValue": "umod",
+        "DeleteAfterExtract": true,
+        "SkipOnFailure": true
+    },
+    {
+        "UpdateStageName": "uMod Download",
+        "UpdateSourcePlatform": "Linux",
+        "UpdateSource": "GithubRelease",
+        "UpdateSourceArgs": "OxideMod/Oxide.Rust",
+        "UpdateSourceData": "Oxide.Rust-linux.zip",
+        "UpdateSourceTarget": "{{$FullBaseDir}}",
+        "UnzipUpdateSource": true,
+        "OverwriteExistingFiles": true,
+        "UpdateSourceConditionSetting": "ModLoader",
+        "UpdateSourceConditionValue": "umod",
+        "DeleteAfterExtract": true,
+        "SkipOnFailure": true
+    }
+]
