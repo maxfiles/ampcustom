@@ -637,6 +637,8 @@
             "rustbeta_aux01_build": "Aux01",
             "rustbeta_aux02_build": "Aux02",
             "rustbeta_aux03_build": "Aux03"
+            "rustbeta_ox01_build": "ox01"
+
         }
     }
 ]
